@@ -1,11 +1,9 @@
-//position of the objec ceation;
-
 package com.ergotrack;
 
-// Import our custom math class points
 import com.ergotrack.ErgoMath.Point;
 
 public class PositionOfObject {
+
     public static void main(String[] args) {
         
         System.out.println("--- Starting Ergonomic Math Dry Run ---");
