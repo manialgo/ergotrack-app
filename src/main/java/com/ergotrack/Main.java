@@ -4,16 +4,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+
 import org.bytedeco.javacv.CanvasFrame;
 import org.bytedeco.javacv.Frame;
 import org.bytedeco.javacv.Java2DFrameConverter;
-import org.bytedeco.javacv.OpenCVFrameConverter; // ◄ Added this import
+import org.bytedeco.javacv.OpenCVFrameConverter;
 import org.bytedeco.javacv.OpenCVFrameGrabber;
+
 import org.bytedeco.opencv.opencv_core.Mat;
 import org.bytedeco.opencv.opencv_core.Point;
-import org.bytedeco.opencv.opencv_core.Scalar;  // ◄ Added this import
+import org.bytedeco.opencv.opencv_core.Scalar;
 import org.bytedeco.opencv.opencv_core.Size;
 import org.bytedeco.opencv.opencv_dnn.Net;
+
+
 import static org.bytedeco.opencv.global.opencv_core.minMaxLoc;
 import static org.bytedeco.opencv.global.opencv_dnn.blobFromImage;
 import static org.bytedeco.opencv.global.opencv_dnn.readNetFromCaffe;
@@ -30,7 +34,7 @@ public class Main {
         OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
         Java2DFrameConverter converter = new Java2DFrameConverter();
         
-        // Fix for Error 1: Native Mat converter instance
+        // Native Mat converter instance
         OpenCVFrameConverter.ToMat matConverter = new OpenCVFrameConverter.ToMat();
 
         try {
@@ -42,7 +46,7 @@ public class Main {
                 Frame rawFrame = grabber.grab();
                 if (rawFrame == null) continue;
 
-                // FIX FOR ERROR 1: Safely convert the frame to an OpenCV Mat object
+                // Safely convert the frame to an OpenCV Mat object
                 Mat rawMat = matConverter.convert(rawFrame);
                 if (rawMat == null || rawMat.empty()) continue;
 
@@ -52,7 +56,7 @@ public class Main {
                 int frameW = image.getWidth();
                 int frameH = image.getHeight();
 
-                // FIX FOR ERROR 2: Replace 'null' with explicit default Scalar values
+                // Replace 'null' with explicit default Scalar values
                 Scalar mean = new Scalar(0, 0, 0, 0); 
                 Mat blob = blobFromImage(rawMat, 1.0 / 255.0, new Size(368, 368), 
                                         mean, false, false, org.bytedeco.opencv.global.opencv_core.CV_32F);
@@ -119,8 +123,12 @@ public class Main {
             }
 
             grabber.stop();
+            grabber.close();
+        
         } catch (Exception e) {
             e.printStackTrace();
         }
+        converter.close();
+        matConverter.close();
     }
 }
