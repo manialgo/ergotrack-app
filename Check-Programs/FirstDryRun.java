@@ -18,7 +18,7 @@ import static org.bytedeco.opencv.global.opencv_core.minMaxLoc;
 import static org.bytedeco.opencv.global.opencv_dnn.blobFromImage;
 import static org.bytedeco.opencv.global.opencv_dnn.readNetFromCaffe;
 
-public class Main {
+public class FirstDryRun {
     public static void main(String[] args) {
         String protoPath = "model/pose_deploy_linevec_faster_4_stages.prototxt";
         String weightsPath = "model/pose_iter_160000.caffemodel";
@@ -30,7 +30,7 @@ public class Main {
         OpenCVFrameGrabber grabber = new OpenCVFrameGrabber(0);
         Java2DFrameConverter converter = new Java2DFrameConverter();
         
-        // Fix for Error 1: Native Mat converter instance
+        // Native Mat converter instance
         OpenCVFrameConverter.ToMat matConverter = new OpenCVFrameConverter.ToMat();
 
         try {
@@ -42,7 +42,7 @@ public class Main {
                 Frame rawFrame = grabber.grab();
                 if (rawFrame == null) continue;
 
-                // FIX FOR ERROR 1: Safely convert the frame to an OpenCV Mat object
+                // Safely convert the frame to an OpenCV Mat object
                 Mat rawMat = matConverter.convert(rawFrame);
                 if (rawMat == null || rawMat.empty()) continue;
 
@@ -52,7 +52,7 @@ public class Main {
                 int frameW = image.getWidth();
                 int frameH = image.getHeight();
 
-                // FIX FOR ERROR 2: Replace 'null' with explicit default Scalar values
+                // Replace 'null' with explicit default Scalar values
                 Scalar mean = new Scalar(0, 0, 0, 0); 
                 Mat blob = blobFromImage(rawMat, 1.0 / 255.0, new Size(368, 368), 
                                         mean, false, false, org.bytedeco.opencv.global.opencv_core.CV_32F);
@@ -83,6 +83,7 @@ public class Main {
                         if (i == 8) hipPt = new com.ergotrack.ErgoMath.Point(x, y);
                         if (i == 9) kneePt = new com.ergotrack.ErgoMath.Point(x, y);
                     }
+                    
                 }
 
                 Graphics2D g2d = image.createGraphics();
@@ -117,10 +118,13 @@ public class Main {
                 g2d.dispose();
                 canvas.showImage(converter.convert(image));
             }
-
+            
             grabber.stop();
+            grabber.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        converter.close();
+        matConverter.close();
     }
 }
