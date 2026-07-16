@@ -12,7 +12,6 @@
 - But the sleepless night force them to showdown at a moment also incase of emergency like dizzy. Where their body portions will leads drop in some angle. By properly monitoring theri moments we can say that the person is in danger.  
 - Especially in the saw mill we may notice that a person may work without any proper safety mechanism if he down into a narrow region it may leads to death. By properly giving the rest is one way else with the peroper permission of that person we can use this kind of technology in long term of work.  
 
-
 ## Tools Used:  
   - Programming Language: Java
   - Project Type: Maven
@@ -20,3 +19,5 @@
   - Dependency: JavaCV
 
 Thank you Spectators !
+
+https://github.com/user-attachments/assets/69aa4c20-7264-4eb9-a4d1-ebe7de3adcb0
