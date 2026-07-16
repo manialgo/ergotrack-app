@@ -16,6 +16,7 @@
 ## Tools Used:  
   - Programming Language: Java
   - Project Type: Maven
-  - Libraries Used: JavaCV, OpenCV DNN, AWT, Math.atan2
+  - Libraries Used: OpenCV DNN, AWT, Math.atan2
+  - Dependency: JavaCV
 
 Thank you Spectators !
