@@ -17,6 +17,7 @@
   - Project Type: Maven
   - Libraries Used: OpenCV DNN, AWT, Math.atan2
   - Dependency: JavaCV
+  - Tool Kit: Maven
 
 Thank you Spectators !
 
